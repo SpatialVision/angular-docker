@@ -30,6 +30,16 @@ RUN npm install -g generator-karma generator-ngbp generator-angular \
         generator-angular-fullstack generator-gulp-angular && \
     rm -rf ~/.npm && npm cache clear
 
+#Install sass&compass
+RUN apt-get update && \
+    apt-get install -yq ruby2.1-dev && \
+    apt-get install -yq ruby-ffi && \
+    gem install sass && \
+    gem install compass
+
+#Stop infinite watch
+RUN echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
 # Set app dir
 RUN mkdir /app && chown user:user /app
 WORKDIR /app
