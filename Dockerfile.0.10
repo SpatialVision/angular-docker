@@ -1,5 +1,5 @@
-FROM node:slim
-MAINTAINER Alex
+FROM node:0.10-slim
+MAINTAINER Hiroki Gota
 
 # Install git, sudo
 RUN apt-get -yq update && \
@@ -19,23 +19,8 @@ RUN apt-get -yq update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install apps
-RUN npm install -g yo gulp grunt-cli bower python phantomjs \
-        jasmine-core karma-cli karma-phantomjs-launcher --save-dev \
-        karma-jasmine --save-dev node-pre-gyp && \
-    npm install karma --save-dev && \
+RUN npm install -g grunt-cli@0.1.13 bower@1.7.7 && \
     rm -rf ~/.npm && npm cache clear
-
-# Install generators
-RUN npm install -g generator-karma generator-ngbp generator-angular \
-        generator-angular-fullstack generator-gulp-angular && \
-    rm -rf ~/.npm && npm cache clear
-
-#Install sass&compass
-RUN apt-get update && \
-    apt-get install -yq ruby2.1-dev && \
-    apt-get install -yq ruby-ffi && \
-    gem install sass && \
-    gem install compass
 
 #Stop infinite watch
 #RUN echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
