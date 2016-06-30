@@ -33,7 +33,7 @@ WORKDIR /app
 USER user
 
 # Expose the port
-EXPOSE 9000 3000 3001
+#EXPOSE 9000 3000 3001
 
 # Open bash by default
 CMD /bin/bash
